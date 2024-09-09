@@ -24,7 +24,6 @@ class _WebviewPageState extends State<WebviewPage> {
       if (map is Map) {
         name = map['name'];
         setState(() {
-
         });
       }
     });

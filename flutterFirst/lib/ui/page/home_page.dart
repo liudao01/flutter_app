@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 import 'package:flutterfirst/ui/page/webview_page.dart';
 import 'package:flutterfirst/ui/route/RouteUtils.dart';
@@ -17,37 +20,38 @@ class _homepageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Center(
-          child: Column(
-            children: [
-              Container(
-                width: double.infinity,
-                height: 200,
-                child: Swiper(
-                  itemCount: 3,
-                  indicatorLayout: PageIndicatorLayout.NONE,
-                  autoplay: true,
-                  pagination: const SwiperPagination(),
-                  control: const SwiperControl(),
-                  itemBuilder: (context, index) {
-                    return Container(
-                      width: double.infinity,
-                      margin: EdgeInsets.all(10),
-                      height: 200,
-                      color: Colors.lightGreenAccent,
-                    );
-                  },
-                ),
-              ),
-              Expanded(
-                  child: ListView.builder(
-                      itemCount: 10,
-                      itemBuilder: (context, index) {
-                        return _listitem();
-                      }))
-            ],
-          ),
-        ),
+          child: SingleChildScrollView(
+              child: Column(children: [
+        _swiper(),
+        ListView.builder(
+            shrinkWrap: true, //shrinkWrap可计算所有子组件高度
+            physics: NeverScrollableScrollPhysics(),//滑动让SingleChildScrollView接管
+            itemCount: 10,
+            itemBuilder: (context, index) {
+              return _listitem();
+            })
+      ]))),
+    );
+  }
+
+  Widget _swiper() {
+    return Container(
+      width: double.infinity,
+      height: 200,
+      child: Swiper(
+        itemCount: 3,
+        indicatorLayout: PageIndicatorLayout.NONE,
+        autoplay: true,
+        pagination: const SwiperPagination(),
+        control: const SwiperControl(),
+        itemBuilder: (context, index) {
+          return Container(
+            width: double.infinity,
+            margin: EdgeInsets.all(10),
+            height: 200,
+            color: Colors.lightGreenAccent,
+          );
+        },
       ),
     );
   }
@@ -59,14 +63,12 @@ class _homepageState extends State<HomePage> {
         print('点击事件被触发');
 
         //使用工具类
-        RouteUtils.pushForNamed(context,RoutePath.webview,arguments: {
-          "name":"使用路由传值"
-        });
+        RouteUtils.pushForNamed(context, RoutePath.webview,
+            arguments: {"name": "使用路由传值"});
 
         //使用工具类
         // RouteUtils.push(context, WebviewPage(title: "首页过来的"));
 
-        
         //使用name
         // Navigator.pushNamed(context, RoutePath.webview);
 
