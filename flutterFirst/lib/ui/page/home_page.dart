@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 import 'package:flutterfirst/ui/page/webview_page.dart';
+import 'package:flutterfirst/ui/route/RouteUtils.dart';
+import 'package:flutterfirst/ui/route/routes.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -55,11 +57,22 @@ class _homepageState extends State<HomePage> {
       onTap: () {
         // 点击事件的处理逻辑
         print('点击事件被触发');
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    WebviewPage()));
+
+        //使用工具类
+        RouteUtils.pushForNamed(context,RoutePath.webview,arguments: {
+          "name":"使用路由传值"
+        });
+
+        //使用工具类
+        // RouteUtils.push(context, WebviewPage(title: "首页过来的"));
+
+        
+        //使用name
+        // Navigator.pushNamed(context, RoutePath.webview);
+
+        //使用普通的
+        //   Navigator.push(
+        //       context, MaterialPageRoute(builder: (context) => WebviewPage()));
       },
       child: Container(
           margin: EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),

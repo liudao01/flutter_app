@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterfirst/ui/page/article_page.dart';
-import 'package:flutterfirst/ui/page/home_page.dart';
-import 'http/api.dart';
+import 'ui/route/RouteUtils.dart';
+import 'ui/route/routes.dart';
 
 
 class MyApp extends StatelessWidget {
@@ -15,15 +15,18 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: new Scaffold(
-        // appBar: new AppBar(
-        //   title: new Text(
-        //     'test',
-        //     style: const TextStyle(color: Colors.black),
-        //   ),
-        // ),
-        body: new HomePage()
-      ),
+      // home: new Scaffold(
+      //   // appBar: new AppBar(
+      //   //   title: new Text(
+      //   //     'test',
+      //   //     style: const TextStyle(color: Colors.black),
+      //   //   ),
+      //   // ),
+      //   body: new HomePage()
+      // ),
+      navigatorKey: RouteUtils.navigatorKey,
+      onGenerateRoute: Routes.generateRoute,
+      initialRoute: RoutePath.home,
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
