@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 import 'package:flutterfirst/ui/page/webview_page.dart';
 import 'package:flutterfirst/ui/route/RouteUtils.dart';
@@ -48,7 +49,7 @@ class _homepageState extends State<HomePage> {
           return Container(
             width: double.infinity,
             margin: EdgeInsets.all(10),
-            height: 200,
+            height: 200.h,
             color: Colors.lightGreenAccent,
           );
         },
@@ -77,7 +78,7 @@ class _homepageState extends State<HomePage> {
         //       context, MaterialPageRoute(builder: (context) => WebviewPage()));
       },
       child: Container(
-          margin: EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
+          margin: EdgeInsets.only(left: 10.w, right: 10.w, top: 5.h, bottom: 5.h),
           decoration: BoxDecoration(
               border: Border.all(color: Colors.black26, width: 1),
               borderRadius: BorderRadius.all(Radius.circular(5))),
@@ -91,8 +92,8 @@ class _homepageState extends State<HomePage> {
                   borderRadius: BorderRadius.circular(25),
                   child: Image.network(
                       "https://www.shiguang.pro/skycaiji/data/images/e6/486d9fe4e71771ed64224f0a3507ab.jpg",
-                      width: 30,
-                      height: 30,
+                      width: 30.w,
+                      height: 30.h,
                       fit: BoxFit.fill),
                 ),
                 SizedBox(width: 5),

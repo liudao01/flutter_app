@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutterfirst/ui/page/article_page.dart';
 import 'ui/route/RouteUtils.dart';
 import 'ui/route/routes.dart';
@@ -9,26 +10,36 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      // home: new Scaffold(
-      //   // appBar: new AppBar(
-      //   //   title: new Text(
-      //   //     'test',
-      //   //     style: const TextStyle(color: Colors.black),
-      //   //   ),
-      //   // ),
-      //   body: new HomePage()
-      // ),
-      navigatorKey: RouteUtils.navigatorKey,
-      onGenerateRoute: Routes.generateRoute,
-      initialRoute: RoutePath.home,
-      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    //填入设计稿中设备的屏幕尺寸,单位dp
+    return ScreenUtilInit(
+      designSize: const Size(360, 690),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context , child) {
+        return MaterialApp(
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            useMaterial3: true,
+          ),
+          // home: new Scaffold(
+          //   // appBar: new AppBar(
+          //   //   title: new Text(
+          //   //     'test',
+          //   //     style: const TextStyle(color: Colors.black),
+          //   //   ),
+          //   // ),
+          //   body: new HomePage()
+          // ),
+          navigatorKey: RouteUtils.navigatorKey,
+          onGenerateRoute: Routes.generateRoute,
+          initialRoute: RoutePath.home,
+          // home: const MyHomePage(title: 'Flutter Demo Home Page'),
+        );
+      },
+      // child: const HomePage(title: 'First Method'),
     );
+
   }
 }
 
