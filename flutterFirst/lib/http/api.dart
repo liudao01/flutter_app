@@ -9,7 +9,7 @@ class Api{
   static const String BANNER = "banner/json";
 
   static getArticleList(int page) async {
-    return HttpManager.getInstance().request('$ARTICLE_LIST$page/json');
+    return await HttpManager.getInstance().request('$ARTICLE_LIST$page/json');
   }
 
   static getBanner() async {

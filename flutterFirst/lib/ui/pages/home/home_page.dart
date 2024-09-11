@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
-import 'package:flutterfirst/ui/page/webview_page.dart';
+import 'package:flutterfirst/ui/pages/home/home_vm.dart';
 import 'package:flutterfirst/ui/route/RouteUtils.dart';
 import 'package:flutterfirst/ui/route/routes.dart';
 
@@ -17,6 +17,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _homepageState extends State<HomePage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print("开始请求");
+    HomePageViewModel.getBanner();
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,34 +107,34 @@ class _homepageState extends State<HomePage> {
                 SizedBox(width: 5),
                 Text(
                   "作者",
-                  style: TextStyle(fontSize: 15, color: Colors.black),
+                  style: TextStyle(fontSize: 15.sp, color: Colors.black),
                 ),
                 Spacer(),
                 Text(
                   "2024-08-07 14:40",
-                  style: TextStyle(fontSize: 14, color: Colors.black),
+                  style: TextStyle(fontSize: 14.sp, color: Colors.black),
                 ),
                 SizedBox(width: 5),
                 Text(
                   "置顶",
-                  style: TextStyle(fontSize: 14, color: Colors.blue),
+                  style: TextStyle(fontSize: 14.sp, color: Colors.blue),
                 )
               ],
             ),
-            SizedBox(height: 5),
+            SizedBox(height: 5.h),
             Text("标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题"),
-            SizedBox(height: 5),
+            SizedBox(height: 5.h),
             Row(
               children: [
                 Text(
                   "分类",
-                  style: TextStyle(fontSize: 14, color: Colors.green),
+                  style: TextStyle(fontSize: 14.sp, color: Colors.green),
                 ),
                 Spacer(),
                 Image.asset(
                   "assets/images/img_collect_grey.png",
-                  width: 30,
-                  height: 30,
+                  width: 30.w,
+                  height: 30.h,
                 )
               ],
             )

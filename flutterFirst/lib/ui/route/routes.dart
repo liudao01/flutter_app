@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
-import 'package:flutterfirst/ui/page/home_page.dart';
-import 'package:flutterfirst/ui/page/webview_page.dart';
+import 'package:flutterfirst/ui/pages/home/home_page.dart';
+import 'package:flutterfirst/ui/pages/webview_page.dart';
 
 //路由管理
 class Routes {

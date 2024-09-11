@@ -2,14 +2,12 @@ import 'package:dio/dio.dart';
 import 'api.dart';
 
 class HttpManager {
-  late Dio _dio; //这里也要用late
-  static late HttpManager _instance;
+  late Dio _dio;
+  static HttpManager? _instance; // 修改为可空类型
 
   factory HttpManager.getInstance() {
-    if (_instance == null) {
-      _instance = HttpManager._internal();
-    }
-    return _instance;
+    _instance ??= HttpManager._internal(); // 如果 _instance 为 null 则实例化
+    return _instance!;
   }
 
   // 私有构造函数，以 _ 开头，防止外部直接实例化
@@ -24,13 +22,15 @@ class HttpManager {
     _dio = Dio(options);
   }
 
-  request(rul, {String method = 'get'}) async {
-    try{
-      Options option = new Options(method: method);
-      var result = await _dio.request(rul, options: option);
+  request(url, {String method = 'get'}) async {
+    try {
+      Options option = Options(method: method);
+      var result = await _dio.request(url, options: option);
       return result.data;
-    }  catch(e){
-
+    } catch (e) {
+      // 捕获异常并打印
+      print('请求出错: $e');
+      return null;
     }
   }
 }

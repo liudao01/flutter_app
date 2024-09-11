@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutterfirst/ui/page/article_page.dart';
+import 'package:flutterfirst/ui/pages/article_page.dart';
 import 'ui/route/RouteUtils.dart';
 import 'ui/route/routes.dart';
 
