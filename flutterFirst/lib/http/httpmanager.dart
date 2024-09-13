@@ -25,6 +25,8 @@ class HttpManager {
   request(url, {String method = 'get'}) async {
     try {
       Options option = Options(method: method);
+      print('请求地址: $option.baseUrl$url');
+      print('请求地址 option: $option');
       var result = await _dio.request(url, options: option);
       return result.data;
     } catch (e) {

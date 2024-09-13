@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
+import 'package:flutterfirst/datas/homeBannerData.dart';
 import 'package:flutterfirst/ui/pages/home/home_vm.dart';
 import 'package:flutterfirst/ui/route/RouteUtils.dart';
 import 'package:flutterfirst/ui/route/routes.dart';
@@ -17,14 +18,22 @@ class HomePage extends StatefulWidget {
 }
 
 class _homepageState extends State<HomePage> {
+  List<BannerItemData>? bannerList;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     print("开始请求");
-    HomePageViewModel.getBanner();
-
+    initBannerData();
   }
+
+  initBannerData() async {
+    bannerList = await HomePageViewModel.getBanner();
+    // print("请求成功");
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,8 +42,10 @@ class _homepageState extends State<HomePage> {
               child: Column(children: [
         _swiper(),
         ListView.builder(
-            shrinkWrap: true, //shrinkWrap可计算所有子组件高度
-            physics: NeverScrollableScrollPhysics(),//滑动让SingleChildScrollView接管
+            shrinkWrap: true,
+            //shrinkWrap可计算所有子组件高度
+            physics: NeverScrollableScrollPhysics(),
+            //滑动让SingleChildScrollView接管
             itemCount: 10,
             itemBuilder: (context, index) {
               return _listitem();
@@ -48,7 +59,7 @@ class _homepageState extends State<HomePage> {
       width: double.infinity,
       height: 200,
       child: Swiper(
-        itemCount: 3,
+        itemCount: bannerList?.length ?? 0,
         indicatorLayout: PageIndicatorLayout.NONE,
         autoplay: true,
         pagination: const SwiperPagination(),
@@ -59,6 +70,7 @@ class _homepageState extends State<HomePage> {
             margin: EdgeInsets.all(10),
             height: 200.h,
             color: Colors.lightGreenAccent,
+            child: Image.network(bannerList![index].imagePath! ?? "" ,fit: BoxFit.fill,),
           );
         },
       ),
@@ -86,7 +98,8 @@ class _homepageState extends State<HomePage> {
         //       context, MaterialPageRoute(builder: (context) => WebviewPage()));
       },
       child: Container(
-          margin: EdgeInsets.only(left: 10.w, right: 10.w, top: 5.h, bottom: 5.h),
+          margin:
+              EdgeInsets.only(left: 10.w, right: 10.w, top: 5.h, bottom: 5.h),
           decoration: BoxDecoration(
               border: Border.all(color: Colors.black26, width: 1),
               borderRadius: BorderRadius.all(Radius.circular(5))),
