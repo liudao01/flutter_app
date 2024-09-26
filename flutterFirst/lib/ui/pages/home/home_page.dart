@@ -9,6 +9,7 @@ import 'package:flutterfirst/datas/homeBannerData.dart';
 import 'package:flutterfirst/ui/pages/home/home_vm.dart';
 import 'package:flutterfirst/ui/route/RouteUtils.dart';
 import 'package:flutterfirst/ui/route/routes.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -18,63 +19,66 @@ class HomePage extends StatefulWidget {
 }
 
 class _homepageState extends State<HomePage> {
-  List<BannerItemData>? bannerList;
+  HomePageViewModel viewModel = HomePageViewModel();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    print("开始请求");
-    initBannerData();
-  }
-
-  initBannerData() async {
-    bannerList = await HomePageViewModel.getBanner();
-    // print("请求成功");
-    setState(() {});
+    viewModel.getBanner();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-          child: SingleChildScrollView(
-              child: Column(children: [
-        _swiper(),
-        ListView.builder(
-            shrinkWrap: true,
-            //shrinkWrap可计算所有子组件高度
-            physics: NeverScrollableScrollPhysics(),
-            //滑动让SingleChildScrollView接管
-            itemCount: 10,
-            itemBuilder: (context, index) {
-              return _listitem();
-            })
-      ]))),
+    return ChangeNotifierProvider<HomePageViewModel>(
+      create: (context) {
+        return viewModel;
+      },
+      child: Scaffold(
+        body: SafeArea(
+            child: SingleChildScrollView(
+                child: Column(children: [
+          _swiper(),
+          ListView.builder(
+              shrinkWrap: true,
+              //shrinkWrap可计算所有子组件高度
+              physics: NeverScrollableScrollPhysics(),
+              //滑动让SingleChildScrollView接管
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                return _listitem();
+              })
+        ]))),
+      ),
     );
   }
 
   Widget _swiper() {
-    return Container(
-      width: double.infinity,
-      height: 200,
-      child: Swiper(
-        itemCount: bannerList?.length ?? 0,
-        indicatorLayout: PageIndicatorLayout.NONE,
-        autoplay: true,
-        pagination: const SwiperPagination(),
-        control: const SwiperControl(),
-        itemBuilder: (context, index) {
-          return Container(
-            width: double.infinity,
-            margin: EdgeInsets.all(10),
-            height: 200.h,
-            color: Colors.lightGreenAccent,
-            child: Image.network(bannerList![index].imagePath! ?? "" ,fit: BoxFit.fill,),
-          );
-        },
-      ),
-    );
+    return Consumer<HomePageViewModel>(builder: (context, vm, child) {
+      return Container(
+        width: double.infinity,
+        height: 200,
+        child: Swiper(
+          itemCount: vm.bannerList?.length ?? 0,
+          indicatorLayout: PageIndicatorLayout.NONE,
+          autoplay: true,
+          pagination: const SwiperPagination(),
+          control: const SwiperControl(),
+          itemBuilder: (context, index) {
+            return Container(
+              width: double.infinity,
+              margin: EdgeInsets.all(10),
+              height: 200.h,
+              color: Colors.lightGreenAccent,
+              child: Image.network(
+                vm.bannerList![index].imagePath! ?? "",
+                fit: BoxFit.fill,
+              ),
+            );
+          },
+        ),
+      );
+    });
   }
 
   Widget _listitem() {
