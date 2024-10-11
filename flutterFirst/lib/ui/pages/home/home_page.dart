@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 import 'package:flutterfirst/datas/homeBannerData.dart';
+import 'package:flutterfirst/datas/homeListData.dart';
 import 'package:flutterfirst/ui/pages/home/home_vm.dart';
 import 'package:flutterfirst/ui/route/RouteUtils.dart';
 import 'package:flutterfirst/ui/route/routes.dart';
@@ -26,6 +27,7 @@ class _homepageState extends State<HomePage> {
     // TODO: implement initState
     super.initState();
     viewModel.getBanner();
+    viewModel.getHomeList(1);
   }
 
   @override
@@ -37,24 +39,29 @@ class _homepageState extends State<HomePage> {
       child: Scaffold(
         body: SafeArea(
             child: SingleChildScrollView(
-                child: Column(children: [
-          _swiper(),
-          ListView.builder(
-              shrinkWrap: true,
-              //shrinkWrap可计算所有子组件高度
-              physics: NeverScrollableScrollPhysics(),
-              //滑动让SingleChildScrollView接管
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                return _listitem();
-              })
-        ]))),
+                child: Column(children: [_swiper(), _homeList()]))),
       ),
     );
   }
 
+  Widget _homeList() {
+    print("homeList 调用");
+    return Consumer<HomePageViewModel>(builder: (context, vm, child) {
+      return ListView.builder(
+          shrinkWrap: true,
+          //shrinkWrap可计算所有子组件高度
+          physics: NeverScrollableScrollPhysics(),
+          //滑动让SingleChildScrollView接管
+          itemCount: vm.listData?.length ?? 0,
+          itemBuilder: (context, index) {
+            return _listitem(vm.listData?[index]);
+          });
+    });
+  }
+
   Widget _swiper() {
     return Consumer<HomePageViewModel>(builder: (context, vm, child) {
+      print("_swiper 调用");
       return Container(
         width: double.infinity,
         height: 200,
@@ -81,7 +88,7 @@ class _homepageState extends State<HomePage> {
     });
   }
 
-  Widget _listitem() {
+  Widget _listitem(HomeListItemData? itemData) {
     return GestureDetector(
       onTap: () {
         // 点击事件的处理逻辑
@@ -111,27 +118,23 @@ class _homepageState extends State<HomePage> {
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(25),
                   child: Image.network(
-                      "https://www.shiguang.pro/skycaiji/data/images/e6/486d9fe4e71771ed64224f0a3507ab.jpg",
-                      width: 30.w,
-                      height: 30.h,
+                      "https://img0.baidu.com/it/u=2045844358,1687804338&fm=253&fmt=auto?w=800&h=800",
+                      width: 30.r,
+                      height: 30.r,
                       fit: BoxFit.fill),
                 ),
                 SizedBox(width: 5),
                 Text(
-                  "作者",
+                  itemData?.author ?? "",
                   style: TextStyle(fontSize: 15.sp, color: Colors.black),
                 ),
-                Spacer(),
-                Text(
-                  "2024-08-07 14:40",
-                  style: TextStyle(fontSize: 14.sp, color: Colors.black),
-                ),
                 SizedBox(width: 5),
+                Spacer(),
                 Text(
                   "置顶",
                   style: TextStyle(fontSize: 14.sp, color: Colors.blue),
@@ -139,12 +142,12 @@ class _homepageState extends State<HomePage> {
               ],
             ),
             SizedBox(height: 5.h),
-            Text("标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题"),
+            Text(itemData?.title ?? "itemData?.title"),
             SizedBox(height: 5.h),
             Row(
               children: [
                 Text(
-                  "分类",
+                  itemData?.chapterName ?? "",
                   style: TextStyle(fontSize: 14.sp, color: Colors.green),
                 ),
                 Spacer(),

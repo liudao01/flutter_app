@@ -28,6 +28,7 @@ class HttpManager {
       print('请求地址: $option.baseUrl$url');
       print('请求地址 option: $option');
       var result = await _dio.request(url, options: option);
+      print('请求结果 : ${result.data}');
       return result.data;
     } catch (e) {
       // 捕获异常并打印

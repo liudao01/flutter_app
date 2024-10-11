@@ -8,7 +8,7 @@ class Api{
 
   static const String BANNER = "banner/json";
 
-  static getArticleList(int page) async {
+  static getHomeList(int page) async {
     return await HttpManager.getInstance().request('$ARTICLE_LIST$page/json');
   }
 

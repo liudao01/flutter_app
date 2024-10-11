@@ -56,7 +56,7 @@ class _ArticiePageState extends State<ArticlePage> {
 
   _getArticlelist([bool isUpdate = true]) async {
     /// 请求成功是map，失败是null
-    var data = await Api.getArticleList(curPage);
+    var data = await Api.getHomeList(curPage);
     if (data != null) {
       var map = data['data'];
       var datas = map['datas'];
