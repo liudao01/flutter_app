@@ -89,6 +89,14 @@ class _homepageState extends State<HomePage> {
   }
 
   Widget _listitem(HomeListItemData? itemData) {
+
+    var name;
+    if(itemData?.author?.isNotEmpty == true) {
+      name = itemData?.author;
+    }else{
+      name = itemData?.shareUser;
+    }
+
     return GestureDetector(
       onTap: () {
         // 点击事件的处理逻辑
@@ -130,7 +138,7 @@ class _homepageState extends State<HomePage> {
                 ),
                 SizedBox(width: 5),
                 Text(
-                  itemData?.author ?? "",
+                  name,
                   style: TextStyle(fontSize: 15.sp, color: Colors.black),
                 ),
                 SizedBox(width: 5),
@@ -153,8 +161,8 @@ class _homepageState extends State<HomePage> {
                 Spacer(),
                 Image.asset(
                   "assets/images/img_collect_grey.png",
-                  width: 30.w,
-                  height: 30.h,
+                  width: 30.r,
+                  height: 30.r,
                 )
               ],
             )
