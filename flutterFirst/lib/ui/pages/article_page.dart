@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterfirst/http/api.dart';
+import 'package:flutterfirst/http/WanApi.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutterfirst/ui/widget/article_item.dart';
 
@@ -44,7 +44,7 @@ class _ArticiePageState extends State<ArticlePage> {
   }
 
   _getBanner([bool update = true]) async {
-    var data = await Api.getBanner();
+    var data = await WanApi.getBanner();
     if (data != null) {
       banners.clear();
       banners.addAll(data['data']);
@@ -56,7 +56,7 @@ class _ArticiePageState extends State<ArticlePage> {
 
   _getArticlelist([bool isUpdate = true]) async {
     /// 请求成功是map，失败是null
-    var data = await Api.getHomeList(curPage);
+    var data = await WanApi.getHomeList(curPage);
     if (data != null) {
       var map = data['data'];
       var datas = map['datas'];

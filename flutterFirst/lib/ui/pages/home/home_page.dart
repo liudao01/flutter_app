@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
-import 'package:flutterfirst/datas/homeBannerData.dart';
-import 'package:flutterfirst/datas/homeListData.dart';
+import 'package:flutterfirst/datas/home_list_data.dart';
 import 'package:flutterfirst/ui/pages/home/home_vm.dart';
 import 'package:flutterfirst/ui/route/RouteUtils.dart';
 import 'package:flutterfirst/ui/route/routes.dart';
@@ -78,7 +77,7 @@ class _homepageState extends State<HomePage> {
               height: 200.h,
               color: Colors.lightGreenAccent,
               child: Image.network(
-                vm.bannerList![index].imagePath! ?? "",
+                vm.bannerList![index]?.imagePath! ?? "",
                 fit: BoxFit.fill,
               ),
             );

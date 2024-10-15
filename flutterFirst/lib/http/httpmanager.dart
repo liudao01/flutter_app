@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'api.dart';
+import 'WanApi.dart';
 
 class HttpManager {
   late Dio _dio;
@@ -14,7 +14,7 @@ class HttpManager {
   HttpManager._internal() {
     // 初始化 BaseOptions 对象
     BaseOptions options = BaseOptions(
-      baseUrl: Api.baseUrl,
+      baseUrl: WanApi.baseUrl,
       connectTimeout: Duration(seconds: 5),
       receiveTimeout: Duration(seconds: 3),
     );

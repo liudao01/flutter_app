@@ -1,20 +1,23 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutterfirst/datas/homeBannerData.dart';
-import 'package:flutterfirst/datas/homeListData.dart';
-import 'package:flutterfirst/http/api.dart';
+import 'package:flutterfirst/datas/home_banner_data.dart';
+import 'package:flutterfirst/datas/home_list_data.dart';
+import 'package:flutterfirst/http/WanApi.dart';
+import 'package:flutterfirst/http/dio_instance.dart';
 
 // 获取首页banner图
 class HomePageViewModel with ChangeNotifier {
-  List<BannerItemData>? bannerList;
-  List<HomeListItemData>? listData;
+  List<HomeBannerData?>?  bannerList;
+  List<HomeListItemData?>?  listData;
 
-  Future<List<BannerItemData>?> getBanner() async {
+  Future<List<HomeBannerData>?> getBanner() async {
     print("结束banner数据开始");
-    var result = await Api.getBanner();
-    print("请求返回数据:  $result");
-    HomeBannerData bannerData = HomeBannerData.fromJson(result);
-    if (bannerData != null && bannerData.data != null) {
-      bannerList = bannerData.data;
+    // var result = await WanApi.getBanner();
+    Response response = await DioInstance.instance().get(path: "banner/json");
+    HomeListBannerData bannerData = HomeListBannerData.fromJson(response.data);
+
+    if (bannerData.bannerList != null) {
+      bannerList = bannerData.bannerList;
     } else {
       bannerList = [];
     }
@@ -23,12 +26,13 @@ class HomePageViewModel with ChangeNotifier {
 
   //获取首页列表
   Future getHomeList(int page) async {
-    var result = await Api.getHomeList(page);
-    if (result != null) {
-      HomeData homeData = HomeData.fromJson(result);
-      print("获取首页列表 请求返回数据:  ${homeData.data}");
-      if (homeData.data != null && homeData.data?.datas != null) {
-        listData = homeData.data?.datas;
+    // var result = await WanApi.getHomeList(page);
+    Response response = await DioInstance.instance().get(path: "article/list/1/json");
+    if (response != null) {
+      HomeListData homeData = HomeListData.fromJson(response.data);
+      print("获取首页列表 请求返回数据:  ${homeData.datas}");
+      if (homeData.datas?.isNotEmpty == true) {
+        listData = homeData.datas;
       } else {
         listData = [];
       }
